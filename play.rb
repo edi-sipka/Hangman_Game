@@ -1,22 +1,21 @@
 class Hangman
+
   def initialize
-    @letters = ("a".."z").to_a
     @word = words.sample
     @lives = 7
-    @correct = []
     @word_length = ""
     @word.first.size.times do
-      @word_length += " _ "
+      @word_length += "_ "
       end
   end
 
   def words
   [
-   ["cricket", "A game played by gentlemen"],
-   ["jogging", "We are walking..."],
-   ["celebrate", "Remembering special moments"],
-   ["continent", "There are 7 of these"],
-   ["exotic", "Not from around here..."]
+   ["basketball", "A game played by tall guys"],
+   ["wedding", "Celebration of loved..."],
+   ["sunday", "Day in a week"],
+   ["scorpion", "Zodiac sign"],
+   ["Action", "Type of movie"]
   ]
   end
 
@@ -31,9 +30,9 @@ class Hangman
       
       if letter = "_" && @word.first[index] == last_guess
         new_test[index] = last_guess
-    
   end
 end
+
 @word_length = new_test.join(" ")
 end
 
@@ -41,12 +40,25 @@ end
    if @lives > 0
     puts "Enter a letter"
     guess = gets.chomp 
+    
     game_guess = @word.first.include? guess
-    if game_guess 
-      puts "You find a letter"
-      @correct.push(guess)
-      @letters.delete guess
+
+    if guess == "exit"
+      puts "Thank you for playing"
+
+    elsif guess.length > 1
+      puts "only guess 1 letter at a time please!"
+      guess_word
+    
+    elsif game_guess
+      puts "You are correct"
       tester guess
+
+      if @word.first == @word_length.split.join
+        puts "You have won this game!"
+      else
+      game_guess
+      end
     else 
       @lives -= 1
       puts "You missed it. You have #{ @lives } guesses left"
@@ -57,11 +69,14 @@ end
   end
 end
 
+
   def begin
     puts "Welcome to the game... Your clue is #{@word.first.size} characters long"
+    puts "To exit game type `exit`"
     tester
 
     puts "Clue : "" #{ @word.last }"
+
    guess_word
 end
 
