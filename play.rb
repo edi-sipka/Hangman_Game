@@ -20,9 +20,14 @@ class Hangman
   ]
   end
 
-  def tester(last_guess)
-    word_length = ""
-    puts word_length
+  def tester(last_guess = nil)
+    update unless last_guess.nil?
+    puts @word_length
+  end
+
+  def update
+    new_test = @word_length.split
+    
   end
 
   def guess_word 
