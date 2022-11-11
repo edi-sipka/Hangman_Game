@@ -6,7 +6,7 @@ class Hangman
     @correct = []
     @word_length = ""
     @word.first.size.times do
-      word_length += " _ "
+      @word_length += " _ "
       end
   end
 
@@ -21,14 +21,21 @@ class Hangman
   end
 
   def tester(last_guess = nil)
-    update unless last_guess.nil?
+    update(last_guess) unless last_guess.nil?
     puts @word_length
   end
 
-  def update
+  def update(last_guess)
     new_test = @word_length.split
+    new_test.each_with_index do |letter, index|
+      
+      if letter = "_" && @word.first[index] == last_guess
+        new_test[index] = last_guess
     
   end
+end
+@word_length = new_test.join(" ")
+end
 
   def guess_word 
    if @lives > 0
